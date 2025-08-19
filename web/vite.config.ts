@@ -27,6 +27,8 @@ export default async ({ mode, command }) => {
     // 开发服务器选项 https://cn.vite.dev/config/#server-options
     server: {
       open: true,
+      host: true,
+      allowedHosts: ['mineadmin.local.com'],
       port: Number(env.VITE_APP_PORT ?? process.env.port),
       proxy: {
         [proxyPrefix]: {
