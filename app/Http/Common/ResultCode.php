@@ -49,4 +49,18 @@ enum ResultCode: int
 
     #[Message('result.disabled')]
     case DISABLED = 423;
+
+
+    // 业务相关错误
+    #[Message('参数验证失败')]
+    case VALIDATION_ERROR = 10001;
+
+    #[Message('业务逻辑错误')]
+    case BUSINESS_ERROR = 10002;
+
+    #[Message('数据库操作失败')]
+    case DATABASE_ERROR = 10003;
+
+    #[Message('外部服务调用失败')]
+    case EXTERNAL_SERVICE_ERROR = 10004;
 }
