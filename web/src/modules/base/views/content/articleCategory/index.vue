@@ -25,6 +25,27 @@ const i18n = useTrans() as TransType
 const t = i18n.globalTrans
 const msg = useMessage()
 
+/** 面包屑路径栈 */
+const pathStack = ref<{ id: number; name: string }[]>([
+  { id: 0, name: '顶级分类' },
+])
+
+// 进入下一级分类
+window.__goNextCategory = (id: number, name: string) => {
+  parentId.value = id
+  pathStack.value.push({ id, name })
+  proTableRef.value?.refresh()
+}
+
+// 返回上一级
+function goBack() {
+  if (pathStack.value.length > 1) {
+    pathStack.value.pop()
+    parentId.value = pathStack.value[pathStack.value.length - 1].id
+    proTableRef.value?.refresh()
+  }
+}
+
 /* 弹窗 */
 const maDialog = useDialog({
   lgWidth: '520px',
@@ -106,6 +127,36 @@ function handleDelete() {
 
 <template>
   <div class="mine-layout pt-3">
+    <div style="margin-bottom: 10px; display:flex; align-items:center; gap:10px;">
+      <span style="font-size:18px;font-weight:bold;">文章分类</span>
+
+      <!-- 面包屑 -->
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item
+          v-for="(item, index) in pathStack"
+          :key="item.id"
+          @click="() => {
+            parentId.value = item.id
+            pathStack.value = pathStack.value.slice(0, index + 1)
+            proTableRef.value.refresh()
+          }"
+          style="cursor:pointer;"
+        >
+          {{ item.name }}
+        </el-breadcrumb-item>
+      </el-breadcrumb>
+
+      <!-- 返回上级 -->
+      <el-button
+        v-if="pathStack.length > 1"
+        type="primary"
+        link
+        @click="goBack"
+      >
+        返回上级
+      </el-button>
+    </div>
+
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
       <template #actions>
         <el-button

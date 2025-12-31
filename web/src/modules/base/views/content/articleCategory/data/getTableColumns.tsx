@@ -17,7 +17,23 @@ export default function getTableColumns(
 
     // 普通字段（除 deleted_at 外全部）
     { label: 'ID', prop: 'id', width: 80 },
-    { label: '分类名称', prop: 'name', width: 140 },
+
+    {
+      label: '分类名称',
+      prop: 'name',
+      width: 140,
+      cellRender: ({ row }) => {
+        return (
+          <a
+            style="color:#409EFF;cursor:pointer;"
+            onClick={() => window.__goNextCategory(row.id, row.name)}
+          >
+            {row.name}
+          </a>
+        )
+      },
+    },
+
     { label: '父级ID', prop: 'parent_id', width: 140 },
     { label: '排序', prop: 'sort', width: 80 },
     { label: '状态', prop: 'status', width: 100 },
