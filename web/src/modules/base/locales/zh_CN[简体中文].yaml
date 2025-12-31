@@ -216,3 +216,7 @@ baseMenu:
     attachmentList: 附件列表
     attachmentUpload: 上传附件
     attachmentDelete: 删除附件
+  content:
+    index: 内容管理
+    articleCategory: 文章分类
+    articleCategoryList: 分类列表

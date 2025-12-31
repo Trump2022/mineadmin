@@ -149,3 +149,8 @@ basePost:
     attachmentList: 附件列表
     attachmentUpload: 上傳附件
     attachmentDelete: 刪除附件
+  content:
+    index: 內容管理
+    articleCategory: 文章分類
+    articleCategoryList: 分類列表
+

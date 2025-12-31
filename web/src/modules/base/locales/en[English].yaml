@@ -149,3 +149,8 @@ basePost:
     attachmentList: Attachment List
     attachmentUpload: Attachment Upload
     attachmentDelete: Attachment Delete
+  content:
+    index: Content Management
+    articleCategory: Article Categories
+    articleCategoryList: Category List
+

@@ -70,7 +70,7 @@
     "fakerphp/faker": "^1.23",
     "friendsofphp/php-cs-fixer": "^3.0",
     "hyperf/devtool": "3.1.*",
-    "hyperf/ide-helper": "3.1.*",
+    "hyperf/ide-helper": "^3.1",
     "hyperf/testing": "3.1.*",
     "hyperf/watcher": "3.1.*",
     "mockery/mockery": "^1.0",
