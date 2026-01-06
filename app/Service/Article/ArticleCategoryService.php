@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of MineAdmin.
+ *
+ * @link     https://www.mineadmin.com
+ * @document https://doc.mineadmin.com
+ * @contact  root@imoi.cn
+ * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
+ */
 
 namespace App\Service\Article;
 
@@ -95,4 +103,14 @@ class ArticleCategoryService extends IService
         }
         return $tree;
     }
+
+    public function updateStatus(int $id, int $status): void
+    {
+        // 更新当前节点
+        $this->repository->updateById($id, ['status' => $status]);
+
+        // 更新所有子孙节点
+        $this->repository->updateByPathLike($id, $status);
+    }
+
 }

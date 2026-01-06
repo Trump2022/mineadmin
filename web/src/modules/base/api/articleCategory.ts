@@ -1,3 +1,12 @@
+/**
+ * MineAdmin is committed to providing solutions for quickly building web applications
+ * Please view the LICENSE file that was distributed with this source code,
+ * For the full copyright and license information.
+ * Thank you very much for using MineAdmin.
+ *
+ * @Author X.Mo<root@imoi.cn>
+ * @Link   https://github.com/mineadmin
+ */
 import type { PageList, ResponseStruct } from '#/global'
 
 export interface ArticleCategoryVo {
@@ -35,4 +44,8 @@ export function save(id: number, data: ArticleCategoryVo): Promise<ResponseStruc
 
 export function deleteByIds(ids: number[]): Promise<ResponseStruct<null>> {
   return useHttp().delete('/admin/article/category', { data: ids })
+}
+
+export function updateStatusApi(data: { id: number, status: number }): Promise<ResponseStruct<null>> {
+  return useHttp().put('/admin/article/category-status', data)
 }

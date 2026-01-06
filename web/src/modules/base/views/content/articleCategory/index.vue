@@ -1,3 +1,13 @@
+<!--
+ - MineAdmin is committed to providing solutions for quickly building web applications
+ - Please view the LICENSE file that was distributed with this source code,
+ - For the full copyright and license information.
+ - Thank you very much for using MineAdmin.
+ -
+ - @Author X.Mo<root@imoi.cn>
+ - @Link   https://github.com/mineadmin
+-->
+
 <script setup lang="tsx">
 import type { MaProTableExpose, MaProTableOptions, MaProTableSchema } from '@mineadmin/pro-table'
 import type { Ref } from 'vue'
@@ -123,6 +133,12 @@ function handleDelete() {
     }
   })
 }
+
+function handleBreadcrumbClick(item: { id: number; name: string }, index: number) {
+  parentId.value = item.id
+  pathStack.value = pathStack.value.slice(0, index + 1)
+  proTableRef.value?.refresh()
+}
 </script>
 
 <template>
@@ -135,14 +151,11 @@ function handleDelete() {
         <el-breadcrumb-item
           v-for="(item, index) in pathStack"
           :key="item.id"
-          @click="() => {
-            parentId.value = item.id
-            pathStack.value = pathStack.value.slice(0, index + 1)
-            proTableRef.value.refresh()
-          }"
-          style="cursor:pointer;"
+          @click="() => handleBreadcrumbClick(item, index)"
         >
-          {{ item.name }}
+          <span style="color:#409EFF;cursor:pointer;">
+            {{ item.name }}
+          </span>
         </el-breadcrumb-item>
       </el-breadcrumb>
 

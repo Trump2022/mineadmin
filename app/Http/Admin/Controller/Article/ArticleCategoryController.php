@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of MineAdmin.
+ *
+ * @link     https://www.mineadmin.com
+ * @document https://doc.mineadmin.com
+ * @contact  root@imoi.cn
+ * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
+ */
 
 namespace App\Http\Admin\Controller\Article;
 
@@ -45,11 +53,15 @@ class ArticleCategoryController extends AbstractController
     )]
     #[PageResponse(instance: ArticleCategorySchema::class)]
     #[Permission(code: 'article:category:index')]
-    public function pageList(): Result
+    public function page(): Result
     {
-        return $this->success([
-            'list' => $this->service->getList($this->getRequestData()),
-        ]);
+        return $this->success(
+            $this->service->page(
+                $this->getRequestData(),
+                $this->getCurrentPage(),
+                $this->getPageSize()
+            )
+        );
     }
 
     #[Post(
@@ -113,4 +125,30 @@ class ArticleCategoryController extends AbstractController
     {
         return $this->success($this->service->getTree());
     }
+
+    #[Put(
+        path: '/admin/article/category-status',
+        operationId: 'articleCategoryStatusUpdate',
+        summary: '更新分类状态（含子孙节点）',
+        security: [['Bearer' => [], 'ApiKey' => []]],
+        tags: ['文章分类'],
+    )]
+    #[Permission(code: 'article:category:update')]
+    #[ResultResponse(instance: new Result())]
+    public function updateStatus(): Result
+    {
+        $data = $this->getRequestData();
+
+        $id = (int) ($data['id'] ?? 0);
+        $status = (int) ($data['status'] ?? 0);
+
+        if (! $id) {
+            return $this->error('缺少参数：id');
+        }
+
+        $this->service->updateStatus($id, $status);
+
+        return $this->success();
+    }
+
 }
