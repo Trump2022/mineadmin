@@ -182,3 +182,8 @@ dictionary:
     self: 本人数据权限
     customDept: 自选部门数据权限
     customFunc: 自定义函数数据权限
+
+articleCategory:
+  statusUpdateSuccess: 状态更新成功
+
+

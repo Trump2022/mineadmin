@@ -76,7 +76,7 @@ export default function getTableColumns(
             return
           }
 
-          msg.success(t('crud.updateSuccess'))
+          msg.success(t('articleCategory.statusUpdateSuccess'))
           window.__proTableRef?.refresh()
         }
 
