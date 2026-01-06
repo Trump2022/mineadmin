@@ -19,6 +19,7 @@ export default function getTableColumns(
   // formRef: any,
   // t: any,
 ): MaProTableColumns[] {
+  const t = useTrans().globalTrans
   const msg = useMessage()
 
   return [
@@ -75,7 +76,7 @@ export default function getTableColumns(
             return
           }
 
-          msg.success('状态已更新')
+          msg.success(t('crud.updateSuccess'))
           window.__proTableRef?.refresh()
         }
 
