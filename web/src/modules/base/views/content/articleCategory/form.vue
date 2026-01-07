@@ -50,13 +50,17 @@ useForm('categoryForm').then(async (form: MaFormExpose) => {
     Object.assign(model.value, data)
   }
 
+  // 新增时带入 parent_id，但顶级（0）不写入
+  if (formType === 'add' && data?.parent_id > 0) {
+    model.value.parent_id = data.parent_id
+  }
+
   // ⭐ 重新渲染表单项
   form.setItems(getFormItems(formType, model.value))
   form.setOptions({
     labelWidth: '80px',
   })
 })
-
 
 /**
  * 提交前兜底
