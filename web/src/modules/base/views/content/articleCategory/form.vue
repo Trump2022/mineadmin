@@ -43,15 +43,22 @@ const model = ref<any>({
 useForm('categoryForm').then(async (form: MaFormExpose) => {
   // ⭐ 加载父级分类树
   const res = await tree()
-  model.value._treeData = res.data
+  model.value._treeData = [
+    {
+      id: 0,
+      name: '请选择上级分类',
+      children: [],
+    },
+    ...res.data,
+  ]
 
-  // ⭐ 编辑时回显
+  // ⭐ 编辑：回显旧值（原样用后端给的）
   if (formType === 'edit' && data) {
     Object.assign(model.value, data)
   }
 
-  // 新增时带入 parent_id，但顶级（0）不写入
-  if (formType === 'add' && data?.parent_id > 0) {
+  // ⭐ 新增：选中当前查看层级（列表当前的 parent_id），不判断大小
+  if (formType === 'add' && data && 'parent_id' in data) {
     model.value.parent_id = data.parent_id
   }
 
