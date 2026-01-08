@@ -32,6 +32,7 @@ use Hyperf\Swagger\Annotation\RequestBody;
 use Mine\Access\Attribute\Permission;
 use Mine\Swagger\Attributes\PageResponse;
 use Mine\Swagger\Attributes\ResultResponse;
+use Hyperf\Logger\LoggerFactory;
 
 #[HyperfServer(name: 'http')]
 #[Middleware(middleware: AccessTokenMiddleware::class, priority: 100)]
@@ -41,7 +42,8 @@ class ArticleCategoryController extends AbstractController
 {
     public function __construct(
         protected readonly CurrentUser $currentUser,
-        protected readonly ArticleCategoryService $service
+        protected readonly ArticleCategoryService $service,
+         protected LoggerFactory $loggerFactory
     ) {}
 
     #[Get(
@@ -55,6 +57,11 @@ class ArticleCategoryController extends AbstractController
     #[Permission(code: 'article:category:index')]
     public function page(): Result
     {
+        // \Hyperf\Context\ApplicationContext::getContainer()
+        //     ->get(\Hyperf\Logger\LoggerFactory::class)
+        //     ->get('debug')
+        //     ->info('调试信息', ['data' => 111]);
+
         return $this->success(
             $this->service->page(
                 $this->getRequestData(),

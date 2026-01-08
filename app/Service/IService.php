@@ -32,6 +32,11 @@ abstract class IService
 
     public function page(array $params, int $page = 1, int $pageSize = 10): array
     {
+        // \Hyperf\Context\ApplicationContext::getContainer()
+        //     ->get(\Hyperf\Logger\LoggerFactory::class)
+        //     ->get('debug')
+        //     ->info('调试信息', ['data' => 222]);
+
         return $this->repository->page($params, $page, $pageSize);
     }
 

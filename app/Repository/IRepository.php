@@ -69,6 +69,11 @@ abstract class IRepository
 
     public function page(array $params = [], ?int $page = null, ?int $pageSize = null): array
     {
+        // \Hyperf\Context\ApplicationContext::getContainer()
+        //     ->get(\Hyperf\Logger\LoggerFactory::class)
+        //     ->get('debug')
+        //     ->info('调试信息', ['data' => 444]);
+
         $result = $this->perQuery($this->getQuery(), $params)->paginate(
             perPage: $pageSize,
             pageName: static::PER_PAGE_PARAM_NAME,
