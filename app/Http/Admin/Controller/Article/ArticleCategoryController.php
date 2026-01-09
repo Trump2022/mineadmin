@@ -22,6 +22,7 @@ use App\Http\CurrentUser;
 use App\Schema\ArticleCategorySchema;
 use App\Service\Article\ArticleCategoryService;
 use Hyperf\HttpServer\Annotation\Middleware;
+use Hyperf\Logger\LoggerFactory;
 use Hyperf\Swagger\Annotation\Delete;
 use Hyperf\Swagger\Annotation\Get;
 use Hyperf\Swagger\Annotation\HyperfServer;
@@ -32,7 +33,6 @@ use Hyperf\Swagger\Annotation\RequestBody;
 use Mine\Access\Attribute\Permission;
 use Mine\Swagger\Attributes\PageResponse;
 use Mine\Swagger\Attributes\ResultResponse;
-use Hyperf\Logger\LoggerFactory;
 
 #[HyperfServer(name: 'http')]
 #[Middleware(middleware: AccessTokenMiddleware::class, priority: 100)]
@@ -43,7 +43,7 @@ class ArticleCategoryController extends AbstractController
     public function __construct(
         protected readonly CurrentUser $currentUser,
         protected readonly ArticleCategoryService $service,
-         protected LoggerFactory $loggerFactory
+        protected LoggerFactory $loggerFactory
     ) {}
 
     #[Get(
@@ -157,5 +157,4 @@ class ArticleCategoryController extends AbstractController
 
         return $this->success();
     }
-
 }
