@@ -149,7 +149,7 @@ class ArticleCategoryController extends AbstractController
         $id = (int) ($data['id'] ?? 0);
         $status = (int) ($data['status'] ?? 0);
 
-        if (! $id) {
+        if ( ! $id) {
             return $this->error('缺少参数：id');
         }
 
